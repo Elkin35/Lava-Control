@@ -1,103 +1,189 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
+      <div className="w-[1241px] h-[780px] relative bg-white/75 rounded-2xl shadow-[0px_16px_48px_0px_rgba(227,235,251,1.00)] outline outline-1 outline-offset-[-1px] outline-slate-200 backdrop-blur-[50px] overflow-hidden">
+        <div className="left-[140px] top-[226px] absolute inline-flex flex-col justify-start items-start gap-14">
+          <div className="flex flex-col justify-start items-start gap-8">
+            <div className="flex flex-col justify-start items-start gap-4">
+              <div className="inline-flex justify-start items-center gap-2">
+                <div className="justify-start text-blue-950 text-base font-medium font-['Euclid_Circular_B']">
+                  Nombre Apellido
+                </div>
+                <div className="w-4 h-4 rounded-full outline outline-1 outline-offset-[-0.50px] outline-slate-400" />
+                <div className="w-px h-2 bg-slate-400" />
+              </div>
+              <div className="w-96 h-12 relative bg-gray-50 rounded-lg border border-slate-200" />
+            </div>
+            <div className="flex flex-col justify-start items-start gap-4">
+              <div className="inline-flex justify-start items-center gap-2">
+                <div className="justify-start text-blue-950 text-base font-medium font-['Euclid_Circular_B']">
+                  Número de Tarjeta
+                </div>
+                <div className="w-4 h-4 rounded-full outline outline-1 outline-offset-[-0.50px] outline-orange-500" />
+                <div className="w-px h-2 bg-orange-500" />
+              </div>
+              <div className="w-96 h-12 relative bg-rose-100 rounded-lg outline outline-1 outline-offset-[-1px] outline-orange-500 overflow-hidden">
+                <div className="w-96 left-[25px] top-[15px] absolute justify-start text-amber-950 text-sm font-medium font-['Euclid_Circular_B']">
+                  1 2 3 4 _ _ _ _ _ _ _ _ _ _ _ _
+                </div>
+              </div>
+            </div>
+            <div className="inline-flex justify-start items-start gap-10">
+              <div className="inline-flex flex-col justify-start items-start gap-4">
+                <div className="inline-flex justify-start items-center gap-2">
+                  <div className="justify-start text-blue-950 text-base font-medium font-['Euclid_Circular_B']">
+                    CCV
+                  </div>
+                  <div className="w-4 h-4 rounded-full outline outline-1 outline-offset-[-0.50px] outline-slate-400" />
+                  <div className="w-px h-2 bg-slate-400" />
+                </div>
+                <div className="w-36 h-12 relative bg-gray-50 rounded-lg outline outline-1 outline-offset-[-1px] outline-slate-200 overflow-hidden">
+                  <div className="left-[52px] top-[15px] absolute justify-start text-slate-400 text-sm font-normal font-['Euclid_Circular_B']">
+                    _ _ _{" "}
+                  </div>
+                </div>
+              </div>
+              <div className="inline-flex flex-col justify-start items-start gap-4">
+                <div className="inline-flex justify-start items-center gap-2.5">
+                  <div className="justify-start text-blue-950 text-base font-medium font-['Euclid_Circular_B']">
+                    Fecha de Vencimiento
+                  </div>
+                  <div className="w-4 h-4 rounded-full outline outline-1 outline-offset-[-0.50px] outline-slate-400" />
+                  <div className="w-px h-2 bg-slate-400" />
+                </div>
+                <div className="w-60 h-12 relative bg-gray-50 rounded-lg outline outline-1 outline-offset-[-1px] outline-slate-200 overflow-hidden">
+                  <div className="left-[55px] top-[15px] absolute justify-start text-slate-400 text-sm font-normal font-['Euclid_Circular_B']">
+                    M M / A A
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="w-96 h-12 p-2 bg-orange-500 rounded-lg inline-flex justify-center items-center gap-2">
+            <div className="justify-start text-white text-base font-semibold font-['Euclid_Circular_B']">
+              Completar Pago
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        <div className="left-[140px] top-[98px] absolute inline-flex justify-start items-center gap-4">
+          <div className="w-10 h-10 relative bg-orange-500 rounded-2xl overflow-hidden">
+            <div className="w-5 h-3.5 left-[10px] top-[13px] absolute outline outline-2 outline-offset-[-1px] outline-white" />
+            <div className="w-5 h-0 left-[10px] top-[18px] absolute outline outline-2 outline-offset-[-1px] outline-white" />
+          </div>
+          <div className="justify-start text-blue-950 text-xl font-semibold font-['Euclid_Circular_B']">
+            Pago
+          </div>
+        </div>
+        <div className="w-52 h-14 left-[282px] top-[303px] absolute bg-zinc-100/25 rounded-lg shadow-[0px_4px_16px_0px_rgba(232,235,241,1.00)] outline outline-1 outline-offset-[-1px] outline-gray-200 backdrop-blur-[2px] overflow-hidden">
+          <div className="left-[16px] top-[8px] absolute justify-start text-slate-400 text-sm font-normal font-['Euclid_Circular_B'] leading-tight">
+            Ingrese los 16 dígitos <br />
+            del frente de la tarjeta.
+          </div>
+        </div>
+        <div className="left-[140px] top-[162px] absolute justify-start text-slate-400 text-base font-normal font-['Euclid_Circular_B'] leading-tight">
+          Para completar el pago, por favor ingrese la información completa.
+        </div>
+        <div className="w-96 h-[584px] left-[734px] top-[98px] absolute overflow-hidden">
+          <div className="w-20 h-6 left-[157px] top-[9px] absolute bg-orange-500 rounded" />
+          <div className="w-96 h-96 left-[13px] top-[16px] absolute bg-slate-200/70 rounded-2xl backdrop-blur-lg" />
+          <div className="w-96 h-36 left-[13px] top-[408px] absolute bg-slate-200/70 rounded-2xl" />
+          <div className="w-10 h-10 left-[-7px] top-[388px] absolute bg-white rounded-full" />
+          <div className="w-10 h-10 left-[364px] top-[388px] absolute bg-white rounded-full" />
+          <div className="w-80 h-0 left-[33px] top-[408px] absolute outline outline-1 outline-offset-[-0.50px] outline-slate-400" />
+          <div className="left-[37px] top-[40px] absolute justify-start text-blue-950 text-xl font-semibold font-['Euclid_Circular_B']">
+            Resumen de Pago
+          </div>
+          <div className="w-80 p-4 left-[37px] top-[89px] absolute bg-slate-200 rounded-2xl inline-flex flex-col justify-start items-start">
+            <div className="inline-flex justify-start items-start">
+              <div className="w-32 h-8 p-2 flex justify-start items-center gap-2">
+                <div className="justify-start text-slate-400 text-sm font-normal font-['Euclid_Circular_B']">
+                  Número de Pedido
+                </div>
+              </div>
+              <div className="w-20 h-8 p-2 flex justify-start items-center gap-2">
+                <div className="justify-start text-blue-950 text-sm font-medium font-['Euclid_Circular_B']">
+                  11458523
+                </div>
+              </div>
+            </div>
+            <div className="inline-flex justify-start items-start">
+              <div className="w-32 h-8 p-2 flex justify-start items-center gap-2">
+                <div className="justify-start text-slate-400 text-sm font-normal font-['Euclid_Circular_B']">
+                  IVA
+                </div>
+              </div>
+              <div className="w-20 h-8 p-2 flex justify-start items-center gap-2">
+                <div className="justify-start text-blue-950 text-sm font-medium font-['Euclid_Circular_B']">
+                  %20
+                </div>
+              </div>
+            </div>
+            <div className="inline-flex justify-start items-start">
+              <div className="w-32 h-8 p-2 flex justify-start items-center gap-2">
+                <div className="justify-start text-slate-400 text-sm font-normal font-['Euclid_Circular_B']">
+                  Monto de IVA
+                </div>
+              </div>
+              <div className="w-20 h-8 p-2 flex justify-start items-center gap-2">
+                <div className="justify-start">
+                  <span className="text-blue-950 text-sm font-medium font-['Euclid_Circular_B']">
+                    $ 123,
+                  </span>
+                  <span className="text-blue-950 text-sm font-normal font-['Euclid_Circular_B']">
+                    28
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className="inline-flex justify-start items-start">
+              <div className="w-32 h-8 p-2 flex justify-start items-center gap-2">
+                <div className="justify-start text-slate-400 text-sm font-normal font-['Euclid_Circular_B']">
+                  Monto de Pedido
+                </div>
+              </div>
+              <div className="w-20 h-8 p-2 flex justify-start items-center gap-2">
+                <div className="justify-start">
+                  <span className="text-blue-950 text-sm font-medium font-['Euclid_Circular_B']">
+                    $ 123,
+                  </span>
+                  <span className="text-blue-950 text-sm font-normal font-['Euclid_Circular_B']">
+                    28
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="w-80 left-[37px] top-[452px] absolute inline-flex justify-between items-center">
+            <div className="inline-flex flex-col justify-start items-start gap-2">
+              <div className="justify-start text-slate-400 text-sm font-normal font-['Euclid_Circular_B']">
+                Monto a Pagar
+              </div>
+              <div className="justify-start">
+                <span className="text-blue-950 text-2xl font-semibold font-['Euclid_Circular_B']">
+                  $ 576
+                </span>
+                <span className="text-blue-950 text-xl font-semibold font-['Euclid_Circular_B']">
+                  ,
+                </span>
+                <span className="text-blue-950 text-sm font-normal font-['Euclid_Circular_B']">
+                  32
+                </span>
+              </div>
+            </div>
+            <div className="w-9 h-12 relative overflow-hidden">
+              <div className="w-9 h-12 left-0 top-0 absolute bg-slate-400" />
+            </div>
+          </div>
+        </div>
+        <div className="left-[140px] top-[24px] absolute justify-start">
+          <span className="text-orange-500 text-4xl font-bold font-['Euclid_Circular_B'] leading-10">
+            Lava
+          </span>
+          <span className="text-neutral-700 text-4xl font-normal font-['Euclid_Circular_B'] leading-10">
+            Control
+          </span>
+        </div>
+      </div>
     </div>
   );
 }
