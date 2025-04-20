@@ -11,13 +11,13 @@ import {
 } from "lucide-react";
 
 const MACHINE_TIMERS = {
-  washer: 2 * 60 * 60,
-  dryer: 90 * 60,
+  washer: 100 * 60,
+  dryer: 70 * 60,
 };
 
 const MACHINE_TIMERS_DISPLAY = {
-  washer: "2 horas",
-  dryer: "1 hora 30 min",
+  washer: "1 hora 40 min",
+  dryer: "1 hora 10 min",
 };
 
 function transactionCode() {
@@ -178,6 +178,14 @@ export default function ActivatePage() {
     }
 
     try {
+        const endpointWemos = `/api/lavacontrol/change-timer?seconds=${ MACHINE_TIMERS[selectedToken] }`;
+
+        const wemosResponse = await fetch(endpointWemos);
+        if (!wemosResponse.ok) {
+          alert("Error al activar el equipo. Intente más tarde.");
+          return;
+        }
+
       const endpoint =
         selectedToken === "washer"
           ? "/api/ficha/use-washer"
@@ -509,7 +517,7 @@ export default function ActivatePage() {
               <div className="flex justify-between items-center">
                 <span className="text-slate-500">Referencia</span>
                 <span className="text-slate-800 font-medium">
-                  {ficha.ref_payco}
+                  { String(ficha.id).padStart(8, "0") }
                 </span>
               </div>
               <div className="border-b border-slate-100"></div>
