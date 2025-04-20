@@ -104,52 +104,6 @@ export default function ActivatePage() {
   };
 
   const handleTokenSelection = (tokenType) => {
-    const now = parseDateSafely((new Date()).toDateString());
-
-    if (tokenType === "washer" && ficha?.used_washer) {
-      const washerUsedAt = parseDateSafely(ficha.used_washer);
-      const washerExpires = parseDateSafely(
-        new Date(
-          washerUsedAt.getTime() + MACHINE_TIMERS["washer"] * 1000
-        ).toDateString()
-      );
-
-      if (now < washerExpires) {
-        // Todavía está activa
-        const secondsRemaining = Math.floor((washerExpires - now) / 1000);
-        setSelectedToken("washer");
-        setIsActivated(true);
-        setTimeRemaining(secondsRemaining);
-        setTimerActive(true);
-        return;
-      } else {
-        alert("Esta ficha de lavadora ya fue usada y expiró.");
-        return;
-      }
-    }
-
-    if (tokenType === "dryer" && ficha?.used_dryer) {
-      const dryerUsedAt = parseDateSafely(ficha?.used_dryer);
-      const dryerExpires = parseDateSafely(
-        new Date(
-          dryerUsedAt.getTime() + MACHINE_TIMERS["dryer"] * 1000
-        ).toDateString()
-      );
-
-      if (now < dryerExpires) {
-        const secondsRemaining = Math.floor((dryerExpires - now) / 1000);
-        setSelectedToken("dryer");
-        setIsActivated(true);
-        setTimeRemaining(secondsRemaining);
-        setTimerActive(true);
-        return;
-      } else {
-        alert("Esta ficha de secadora ya fue usada y expiró.");
-        return;
-      }
-    }
-
-    // Si nunca ha sido usado
     setSelectedToken(tokenType);
     setIsActivated(false);
     setActivationCode("");
