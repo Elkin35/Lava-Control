@@ -4,7 +4,6 @@ import { handleCommand } from '../mqtt/commands';
 export const runtime = 'nodejs';
 
 export async function GET(request, { params }) {
-  // 👉 ¡CORRECCIÓN AQUÍ!
   const { action } = await params;
   const url = new URL(request.url);
 
