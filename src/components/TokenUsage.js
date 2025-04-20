@@ -30,12 +30,12 @@ function transactionCode() {
 
 const parseDateSafely = (dateString) => {
   if (!dateString) return null;
-    const date = new Date(dateString);
-    if (isNaN(date.getTime())) {
-      console.error("Invalid date string:", dateString);
-      return null;
-    }
-    return new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+  const date = new Date(dateString);
+  if (isNaN(date.getTime())) {
+    console.error("Invalid date string:", dateString);
+    return null;
+  }
+  return new Date(date.getTime() - date.getTimezoneOffset() * 60000);
 };
 
 export default function ActivatePage() {
@@ -108,8 +108,10 @@ export default function ActivatePage() {
 
     if (tokenType === "washer" && ficha?.used_washer) {
       const washerUsedAt = parseDateSafely(ficha.used_washer);
-      const washerExpires = new Date(
-        washerUsedAt.getTime() + MACHINE_TIMERS["washer"] * 1000
+      const washerExpires = parseDateSafely(
+        new Date(
+          washerUsedAt.getTime() + MACHINE_TIMERS["washer"] * 1000
+        ).toDateString()
       );
 
       if (now < washerExpires) {
@@ -121,7 +123,6 @@ export default function ActivatePage() {
         setTimerActive(true);
         return;
       } else {
-        // 🔥 Si ya venció, no permitimos volver a seleccionar para activar
         alert("Esta ficha de lavadora ya fue usada y expiró.");
         return;
       }
@@ -129,7 +130,11 @@ export default function ActivatePage() {
 
     if (tokenType === "dryer" && ficha?.used_dryer) {
       const dryerUsedAt = parseDateSafely(ficha?.used_dryer);
-      const dryerExpires = new Date(dryerUsedAt.getTime() + MACHINE_TIMERS["dryer"] * 1000);
+      const dryerExpires = parseDateSafely(
+        new Date(
+          dryerUsedAt.getTime() + MACHINE_TIMERS["dryer"] * 1000
+        ).toDateString()
+      );
 
       if (now < dryerExpires) {
         const secondsRemaining = Math.floor((dryerExpires - now) / 1000);
@@ -170,7 +175,9 @@ export default function ActivatePage() {
 
     if (selectedToken === "dryer" && ficha?.used_dryer) {
       const dryerUsedAt = parseDateSafely(ficha?.used_dryer);
-      const dryerExpires = new Date(dryerUsedAt.getTime() + MACHINE_TIMERS["dryer"] * 1000);
+      const dryerExpires = new Date(
+        dryerUsedAt.getTime() + MACHINE_TIMERS["dryer"] * 1000
+      );
       if (now > dryerExpires) {
         alert("Esta ficha de secadora ya fue usada y expiró.");
         return;
@@ -178,13 +185,13 @@ export default function ActivatePage() {
     }
 
     try {
-        const endpointWemos = `/api/lavacontrol/change-timer?seconds=${ MACHINE_TIMERS[selectedToken] }`;
+      const endpointWemos = `/api/lavacontrol/change-timer?seconds=${MACHINE_TIMERS[selectedToken]}`;
 
-        const wemosResponse = await fetch(endpointWemos);
-        if (!wemosResponse.ok) {
-          alert("Error al activar el equipo. Intente más tarde.");
-          return;
-        }
+      const wemosResponse = await fetch(endpointWemos);
+      if (!wemosResponse.ok) {
+        alert("Error al activar el equipo. Intente más tarde.");
+        return;
+      }
 
       const endpoint =
         selectedToken === "washer"
@@ -221,7 +228,7 @@ export default function ActivatePage() {
       } else if (selectedToken === "dryer") {
         setTimeRemaining(MACHINE_TIMERS["dryer"]);
       }
-      
+
       setTimerActive(true);
     } catch (error) {
       console.error("Error usando ficha:", error);
@@ -248,7 +255,9 @@ export default function ActivatePage() {
 
     if (selectedToken === "dryer" && ficha?.used_dryer) {
       const dryerUsedAt = parseDateSafely(ficha?.used_dryer);
-      const dryerExpires = new Date(dryerUsedAt.getTime() + MACHINE_TIMERS["dryer"] * 1000);
+      const dryerExpires = new Date(
+        dryerUsedAt.getTime() + MACHINE_TIMERS["dryer"] * 1000
+      );
       if (now < dryerExpires) {
         const secondsRemaining = Math.floor((dryerExpires - now) / 1000);
         setIsActivated(true);
@@ -269,15 +278,23 @@ export default function ActivatePage() {
   const isWasherExpired = () => {
     if (!ficha?.used_washer) return false;
     const washerUsedAt = parseDateSafely(ficha.used_washer);
-    const washerExpires = parseDateSafely(new Date(washerUsedAt.getTime() + MACHINE_TIMERS["washer"] * 1000).toDateString());
-    return parseDateSafely((new Date()).toDateString()) > washerExpires;
+    const washerExpires = parseDateSafely(
+      new Date(
+        washerUsedAt.getTime() + MACHINE_TIMERS["washer"] * 1000
+      ).toDateString()
+    );
+    return parseDateSafely(new Date().toDateString()) > washerExpires;
   };
 
   const isDryerExpired = () => {
     if (!ficha?.used_dryer) return false;
     const dryerUsedAt = parseDateSafely(ficha?.used_dryer);
-    const dryerExpires = new Date(dryerUsedAt.getTime() + MACHINE_TIMERS["dryer"] * 1000);
-    return new Date() > dryerExpires;
+    const dryerExpires = parseDateSafely(
+      new Date(
+        dryerUsedAt.getTime() + MACHINE_TIMERS["dryer"] * 1000
+      ).toDateString()
+    );
+    return parseDateSafely(new Date().toDateString()) > dryerExpires;
   };
 
   if (validRef === null) {
@@ -310,8 +327,12 @@ export default function ActivatePage() {
   }
 
   const now = new Date();
-  const washerUsed = ficha?.used_washer ? parseDateSafely(ficha.used_washer) : null;
-  const dryerUsed = ficha?.used_dryer ? parseDateSafely(ficha.used_dryer) : null;
+  const washerUsed = ficha?.used_washer
+    ? parseDateSafely(ficha.used_washer)
+    : null;
+  const dryerUsed = ficha?.used_dryer
+    ? parseDateSafely(ficha.used_dryer)
+    : null;
 
   const washerExpired = washerUsed
     ? now > new Date(washerUsed.getTime() + MACHINE_TIMERS["washer"] * 1000)
@@ -369,7 +390,7 @@ export default function ActivatePage() {
                   Ficha Lavadora
                 </h3>
                 <p className="text-sm text-slate-500 mb-4 text-center">
-                  Tiempo: { MACHINE_TIMERS_DISPLAY["washer"] }
+                  Tiempo: {MACHINE_TIMERS_DISPLAY["washer"]}
                 </p>
 
                 {isWasherExpired() ? (
@@ -381,7 +402,9 @@ export default function ActivatePage() {
                     onClick={() => handleTokenSelection("washer")}
                     className="w-full h-12 bg-gradient-to-r from-indigo-600 to-indigo-800 text-white font-semibold rounded-lg shadow-md transform hover:-translate-y-1 transition-all flex items-center justify-center gap-2"
                   >
-                    <span>{ ficha?.used_washer ? "Ver detalle" : "Seleccionar" }</span>
+                    <span>
+                      {ficha?.used_washer ? "Ver detalle" : "Seleccionar"}
+                    </span>
                   </button>
                 )}
               </div>
@@ -397,7 +420,7 @@ export default function ActivatePage() {
                   Ficha Secadora
                 </h3>
                 <p className="text-sm text-slate-500 mb-4 text-center">
-                  Tiempo: { MACHINE_TIMERS_DISPLAY["dryer"] }
+                  Tiempo: {MACHINE_TIMERS_DISPLAY["dryer"]}
                 </p>
 
                 {isDryerExpired() ? (
@@ -517,7 +540,7 @@ export default function ActivatePage() {
               <div className="flex justify-between items-center">
                 <span className="text-slate-500">Referencia</span>
                 <span className="text-slate-800 font-medium">
-                  { String(ficha.id).padStart(8, "0") }
+                  {String(ficha.id).padStart(8, "0")}
                 </span>
               </div>
               <div className="border-b border-slate-100"></div>
