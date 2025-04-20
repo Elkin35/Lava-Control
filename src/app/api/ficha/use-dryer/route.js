@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import db from "../../../../lib/db.ts";
+import db from "../../../../lib/db";
 
 export async function POST(req) {
   const { ref_payco } = await req.json();
