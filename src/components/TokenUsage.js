@@ -11,8 +11,8 @@ import {
 } from "lucide-react";
 
 const MACHINE_TIMERS = {
-  washer: 100 * 60,
-  dryer: 70 * 60,
+  washer: 15,//100 * 60,
+  dryer: 10//70 * 60,
 };
 
 const MACHINE_TIMERS_DISPLAY = {
