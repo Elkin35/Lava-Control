@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import db from "../../../../lib/db";
+import sql from "@/lib/db";
 
 export async function GET(req) {
   const { searchParams } = new URL(req.url);
@@ -9,7 +9,11 @@ export async function GET(req) {
     return NextResponse.json({ valid: false });
   }
 
-  const ficha = db.prepare("SELECT * FROM fichas WHERE ref_payco = ?").get(refPayco);
+  const { rows } = await sql`
+    SELECT * FROM fichas WHERE ref_payco = ${refPayco}
+  `;
+
+  const ficha = rows[0];
 
   if (!ficha) {
     return NextResponse.json({ valid: false });
