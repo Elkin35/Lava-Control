@@ -22,14 +22,14 @@ export default function Home() {
   const handlePayment = () => {
     const handler = window.ePayco.checkout.configure({
       key: "948899a572833469af43bfbf47632340",
-      test: false,
+      test: true,
     });
 
     handler.open({
       external: false,
-      amount: "5000",
+      amount: "15000",
       tax: "0",
-      tax_base: "5000",
+      tax_base: "15000",
       name: "Ficha LavaControl",
       description: "Ficha LavaControl",
       currency: "cop",
