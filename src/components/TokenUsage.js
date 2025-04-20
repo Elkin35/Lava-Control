@@ -269,8 +269,8 @@ export default function ActivatePage() {
   const isWasherExpired = () => {
     if (!ficha?.used_washer) return false;
     const washerUsedAt = parseDateSafely(ficha.used_washer);
-    const washerExpires = new Date(washerUsedAt.getTime() + MACHINE_TIMERS["washer"] * 1000);
-    return new Date() > washerExpires;
+    const washerExpires = parseDateSafely(new Date(washerUsedAt.getTime() + MACHINE_TIMERS["washer"] * 1000).toDateString());
+    return parseDateSafely((new Date()).toDateString()) > washerExpires;
   };
 
   const isDryerExpired = () => {
