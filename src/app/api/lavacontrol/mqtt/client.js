@@ -1,0 +1,72 @@
+"use strict";
+import mqtt from 'mqtt';
+
+// URL del broker MQTT
+const mqttPort      = process.env.MQTT_PORT || 8883;
+const mqttUsername  = process.env.MQTT_USER || 'Admin';
+const mqttPassword  = process.env.MQTT_PASSWORD || 'Admin1234';
+
+// Opciones para la conexión TLS con autenticación
+const options = {
+  port: mqttPort,
+  username: mqttUsername,
+  password: mqttPassword,
+  rejectUnauthorized: false,
+};
+
+if (!globalThis.mqttClient) {
+  globalThis.mqttClient = mqtt.connect(mqttBrokerUrl, options);
+  globalThis.pending = new Map();
+  globalThis.subscribed = false;
+
+  globalThis.mqttClient.on('connect', () => {
+    console.log('Conectado al broker MQTT');
+    if (!globalThis.subscribed) {
+      globalThis.mqttClient.subscribe('lavacontrol/confirm', err => {
+        if (err) console.error('Error al suscribir:', err);
+        else globalThis.subscribed = true;
+      });
+    }
+  });
+
+  globalThis.mqttClient.on('message', (topic, message) => {
+    if (topic !== 'lavacontrol/confirm') return;
+
+    let payload;
+    try {
+      payload = JSON.parse(message.toString());
+    } catch {
+      console.error('ACK JSON inválido:', message.toString());
+      return;
+    }
+
+    const { id, ack } = payload;
+    const entry = globalThis.pending.get(id);
+    if (!entry) {
+      console.log(`ACK para id desconocido: ${id}`);
+      return;
+    }
+
+    const { command, timeout, resolve } = entry;
+    let expected = [];
+
+    if (command.cmd.startsWith('TIMER_ON_')) {
+      expected = ['ACK_TIMER_ON', 'ACK_TIMER_ON_ALREADY'];
+    } else if (command.cmd === 'ON') {
+      expected = ['ACK_ON', 'ACK_ON_ALREADY'];
+    } else if (command.cmd === 'OFF') {
+      expected = ['ACK_OFF'];
+    }
+
+    if (expected.includes(ack)) {
+      clearTimeout(timeout);
+      globalThis.pending.delete(id);
+      resolve({ id, ack });
+    } else {
+      console.log(`ACK inesperado para id ${id}: ${ack}`);
+    }
+  });
+}
+
+export const mqttClient = globalThis.mqttClient;
+export const pendingCommands = globalThis.pending;
