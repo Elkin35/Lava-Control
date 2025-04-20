@@ -408,7 +408,9 @@ export default function ActivatePage() {
                     onClick={() => handleTokenSelection("dryer")}
                     className="w-full h-12 bg-gradient-to-r from-indigo-600 to-indigo-800 text-white font-semibold rounded-lg shadow-md transform hover:-translate-y-1 transition-all flex items-center justify-center gap-2"
                   >
-                    <span>Seleccionar</span>
+                    <span>
+                      {ficha?.used_dryer ? "Ver detalle" : "Seleccionar"}
+                    </span>
                   </button>
                 )}
               </div>
