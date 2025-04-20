@@ -1,5 +1,6 @@
+// app/api/ficha/register/route.js
 import { NextRequest, NextResponse } from "next/server";
-import db from "../../../../lib/db.ts";
+import sql from "@/lib/db";
 
 export async function POST(req) {
   const { ref_payco } = await req.json();
@@ -9,7 +10,12 @@ export async function POST(req) {
   }
 
   try {
-    db.prepare("INSERT INTO fichas (ref_payco) VALUES (?)").run(ref_payco);
+    await sql`
+      INSERT INTO fichas (ref_payco)
+      VALUES (${ref_payco})
+      ON CONFLICT (ref_payco) DO NOTHING
+    `;
+
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Error inserting ficha:", error);

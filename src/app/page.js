@@ -34,8 +34,8 @@ export default function Home() {
       description: "Ficha LavaControl",
       currency: "cop",
       country: "co",
-      response: "https://sc-redesign.vercel.app/payment/response",
-      confirmation: "https://sc-redesign.vercel.app/api/payment/confirm",
+      response: "https://lava-control.vercel.app/payment/response",
+      confirmation: "https://lava-control.vercel.app/api/payment/confirm",
       lang: "es",
     });
   };

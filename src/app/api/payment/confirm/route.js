@@ -1,7 +1,7 @@
 // app/api/payment/confirm/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function POST(req: NextRequest) {
+export async function POST(req) {
     const body = await req.formData(); // ePayco envía application/x-www-form-urlencoded
 
     const refPayco = body.get('ref_payco');
