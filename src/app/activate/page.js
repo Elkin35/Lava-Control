@@ -12,7 +12,7 @@ import {
 
 const MACHINE_TIMERS = {
   washer: 2 * 60 * 60,
-  dryer: 3 * 60,
+  dryer: 90 * 60,
 };
 
 const MACHINE_TIMERS_DISPLAY = {
