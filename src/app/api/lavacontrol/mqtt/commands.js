@@ -1,4 +1,3 @@
-// app/api/lavacontrol/mqtt/commands.js
 import { v4 as uuidv4 } from 'uuid';
 import { mqttClient, pendingCommands } from './client';
 
@@ -16,6 +15,7 @@ function sendCommandWithAck(command, attempt, resolve, reject) {
     if (err) return reject(err);
 
     const timeout = setTimeout(() => {
+      console.log(`Intento ${attempt} fallido para id ${id}. Reintentando...`);
       sendCommandWithAck(command, attempt + 1, resolve, reject);
     }, ACK_TIMEOUT);
 
@@ -23,10 +23,21 @@ function sendCommandWithAck(command, attempt, resolve, reject) {
   });
 }
 
+// La función handleCommand ahora distingue entre TIMER_ON y CHANGE_TIMER.
 export function handleCommand(cmd, seconds = null) {
   return new Promise((resolve, reject) => {
     const id = uuidv4();
-    const fullCommand = { id, cmd: seconds !== null ? `TIMER_ON_${seconds}` : cmd };
+    let fullCommand;
+    if (seconds !== null) {
+      if (cmd === "CHANGE_TIMER") {
+        fullCommand = { id, cmd: `TIMER_CHANGE_${seconds}` };
+      } else {
+        fullCommand = { id, cmd: `TIMER_ON_${seconds}` };
+      }
+    } else {
+      fullCommand = { id, cmd };
+    }
+    console.log("Enviando comando:", fullCommand);
     sendCommandWithAck(fullCommand, 1, resolve, reject);
   });
 }

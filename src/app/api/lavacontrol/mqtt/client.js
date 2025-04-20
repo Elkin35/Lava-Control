@@ -25,23 +25,28 @@ if (!globalThis.mqttClient) {
     if (!globalThis.subscribed) {
       globalThis.mqttClient.subscribe('lavacontrol/confirm', err => {
         if (err) console.error('Error al suscribir:', err);
-        else globalThis.subscribed = true;
+        else {
+          globalThis.subscribed = true;
+          console.log('Subscrito a lavacontrol/confirm');
+        }
       });
     }
   });
 
   globalThis.mqttClient.on('message', (topic, message) => {
+    console.log("Mensaje recibido en topic:", topic, "->", message.toString());
     if (topic !== 'lavacontrol/confirm') return;
 
     let payload;
     try {
       payload = JSON.parse(message.toString());
-    } catch {
+    } catch (e) {
       console.error('ACK JSON inválido:', message.toString());
       return;
     }
 
     const { id, ack } = payload;
+    console.log("Procesando ACK. id:", id, "ack:", ack);
     const entry = globalThis.pending.get(id);
     if (!entry) {
       console.log(`ACK para id desconocido: ${id}`);
@@ -53,6 +58,8 @@ if (!globalThis.mqttClient) {
 
     if (command.cmd.startsWith('TIMER_ON_')) {
       expected = ['ACK_TIMER_ON', 'ACK_TIMER_ON_ALREADY'];
+    } else if (command.cmd.startsWith('TIMER_CHANGE_')) {
+      expected = ['ACK_TIMER_CHANGED', 'ACK_TIMER_CHANGE_REJECTED'];
     } else if (command.cmd === 'ON') {
       expected = ['ACK_ON', 'ACK_ON_ALREADY'];
     } else if (command.cmd === 'OFF') {
