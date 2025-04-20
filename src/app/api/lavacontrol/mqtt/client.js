@@ -1,7 +1,8 @@
 "use strict";
 import mqtt from 'mqtt';
 
-// URL del broker MQTT
+// Broker MQTT y credenciales
+const mqttBrokerUrl = process.env.MQTT_BROKER_URL || 'mqtts://6de67707e2aa470b843876fd092a3e83.s1.eu.hivemq.cloud';
 const mqttPort      = process.env.MQTT_PORT || 8883;
 const mqttUsername  = process.env.MQTT_USER || 'Admin';
 const mqttPassword  = process.env.MQTT_PASSWORD || 'Admin1234';
