@@ -8,6 +8,7 @@ import {
   Timer,
   AlertCircle,
   Ticket,
+  Loader2,
 } from "lucide-react";
 
 const MACHINE_TIMERS = {
@@ -50,6 +51,7 @@ export default function ActivatePage() {
   const [timeRemaining, setTimeRemaining] = useState(null);
   const [timerActive, setTimerActive] = useState(false);
   const [validRef, setValidRef] = useState(null); // null mientras valida
+  const [isLoading, setIsLoading] = useState(false); // Nuevo estado para el indicador de carga
 
   // Validar la referencia al cargar
   useEffect(() => {
@@ -174,12 +176,15 @@ export default function ActivatePage() {
       }
     }
 
+    setIsLoading(true); // Activar el indicador de carga antes de hacer las peticiones
+
     try {
       const endpointWemos = `/api/lavacontrol/change-timer?seconds=${MACHINE_TIMERS[selectedToken]}`;
 
       const wemosResponse = await fetch(endpointWemos);
       if (!wemosResponse.ok) {
         alert("Error al activar el equipo. Intente más tarde.");
+        setIsLoading(false); // Desactivar el indicador de carga en caso de error
         return;
       }
 
@@ -222,6 +227,8 @@ export default function ActivatePage() {
       setTimerActive(true);
     } catch (error) {
       console.error("Error usando ficha:", error);
+    } finally {
+      setIsLoading(false); // Desactivar el indicador de carga después de todo el proceso
     }
   };
 
@@ -487,13 +494,21 @@ export default function ActivatePage() {
                   </div>
                 )}
 
-                {/* Botón de activación */}
+                {/* Botón de activación con indicador de carga */}
                 {!isActivated && (
                   <button
                     onClick={handleActivation}
+                    disabled={isLoading}
                     className="w-full h-12 bg-gradient-to-r from-indigo-600 to-indigo-800 text-white font-semibold rounded-lg shadow-md hover:shadow-indigo-200 transform hover:-translate-y-1 transition-all flex items-center justify-center gap-2 mb-4"
                   >
-                    <span>Usar Ficha</span>
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                        <span>Activando...</span>
+                      </>
+                    ) : (
+                      <span>Usar Ficha</span>
+                    )}
                   </button>
                 )}
 

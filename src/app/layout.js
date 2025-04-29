@@ -1,8 +1,8 @@
 import './globals.css';
 
 export const metadata = {
-  title: 'Payment System - MicroSEL',
-  description: 'Payment processing system',
+  title: 'LavaControl',
+  description: 'Sistema de procesamiento de pagos de LavaControl',
 };
 
 export default function RootLayout({ children }) {
