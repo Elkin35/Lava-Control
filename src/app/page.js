@@ -29,7 +29,7 @@ export default function Home() {
       external: false,
       amount: "5000",
       tax: "0",
-      tax_base: "15000",
+      tax_base: "5000",
       name: "Ficha LavaControl",
       description: "Ficha LavaControl",
       currency: "cop",
