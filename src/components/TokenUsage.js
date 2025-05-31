@@ -12,13 +12,13 @@ import {
 } from "lucide-react";
 
 const MACHINE_TIMERS = {
-  washer: 20,//100 * 60,
-  dryer: 15//70 * 60,
+  washer: 110 * 60,
+  dryer: 90 * 60,
 };
 
 const MACHINE_TIMERS_DISPLAY = {
-  washer: "1 hora 40 min",
-  dryer: "1 hora 10 min",
+  washer: "1 hora 50 min",
+  dryer: "1 hora 30 min",
 };
 
 function transactionCode() {

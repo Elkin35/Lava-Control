@@ -27,9 +27,9 @@ export default function Home() {
 
     handler.open({
       external: false,
-      amount: "5000",
+      amount: "9900",
       tax: "0",
-      tax_base: "5000",
+      tax_base: "9900",
       name: "Ficha LavaControl",
       description: "Ficha LavaControl",
       currency: "cop",
@@ -105,7 +105,7 @@ export default function Home() {
               <div className="border-b border-slate-100"></div>
               <div className="flex justify-between items-center">
                 <span className="text-slate-500">Ficha LavaControl</span>
-                <span className="text-slate-800 font-medium">$ 15.000</span>
+                <span className="text-slate-800 font-medium">$ 9.900</span>
               </div>
             </div>
           </div>
@@ -115,7 +115,7 @@ export default function Home() {
               <div>
                 <p className="text-slate-500 text-sm mb-1">Monto a Pagar</p>
                 <p className="text-slate-800 text-2xl font-bold">
-                  $ 15.000<span className="text-lg">,00</span>
+                  $ 9.900<span className="text-lg">,00</span>
                 </p>
               </div>
               <div className="flex gap-3">
