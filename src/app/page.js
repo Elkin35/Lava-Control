@@ -21,13 +21,13 @@ export default function Home() {
 
   const handlePayment = () => {
     const handler = window.ePayco.checkout.configure({
-      key: "948899a572833469af43bfbf47632340",
-      test: true,
+      key: "b33c81c921bf2d213526981fcf590ec6",
+      test: false,
     });
 
     handler.open({
       external: false,
-      amount: "15000",
+      amount: "5000",
       tax: "0",
       tax_base: "15000",
       name: "Ficha LavaControl",
@@ -63,7 +63,7 @@ export default function Home() {
             onClick={handlePayment}
             className="w-full h-14 bg-gradient-to-r from-indigo-600 to-indigo-800 text-white font-semibold rounded-xl shadow-lg hover:shadow-indigo-200 transform hover:-translate-y-1 transition-all flex items-center justify-center gap-2"
           >
-            <span>Completar Pago</span>
+            <span>Pagar</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
